@@ -9,25 +9,23 @@ window.onload = function() {
         // $('.details').addClass('reveal')
         var _linkTo = $(this).attr('link');
 
-        $('.jsCont[cont="' + _linkTo + '"]').show().siblings('.jsCont').hide();
+       $('.jsCont[cont="'+_linkTo+'"]').removeClass('reveal').siblings('.jsCont').addClass('reveal');
         if (_linkTo == "review") {
             myScroll = new iScroll('ass-inner');
         }
     });
 }
 
-$('.notice').click(function() {
-    $('.opacity').removeClass('reveal')
-    // $('.artical').hide()
-});
+
 $('.fork').click(function() {
     $('.opacity').addClass('reveal')
 });
 
 var myScroll;
+var myScroll2;
 function loaded() {
     myScroll = new iScroll('wrapper_inner');
-    myScroll = new iScroll('wrapper_right_inner');
+    myScroll2 = new iScroll('wrapper_right_inner');
 
     // myScroll = new iScroll('maintitle');
 }
@@ -61,7 +59,20 @@ function init() {
     $('#js-observer').html(_gettpl('js-observer-text', {
         'data': data
     }));
+    bindEvent();
 };
+function bindEvent() {
+    $('.js_foodtypelist li').click(function(){
+        var _index = $(this).index();
+
+        myScroll2.scrollToElement('#goods_' + _index);
+    });
+    $('.notice').click(function() {
+        $('.opacity').removeClass('reveal');debugger;
+        // $('.artical').hide()
+    });
+
+}
 init();　
 
 // details 滚动
@@ -79,9 +90,9 @@ $('.js-title li').click(function() {
         for (var j = 0; j < data.goods[i].foods.length; j++) {
             if (id == data.goods[i].foods[j].id) {
                 datas = data.goods[i].foods[j];
-                str5 += ' <div class="hea">' + '<img src="' + datas.image + '">' + '</div>' + '<div class="select">' + '<div class="bb">' + datas.name + '</div>' + '<div class="sp">' + '<span class="sale">' + '月售' + datas.sellCount + '份' + '</span>' + '<span class="praise">' + '好评率' + datas.rating + '</span>' + '</div>' + '<div class="prix">' + '<span class="now">' + '¥' + datas.price + '</span>' + '<span class="forme">' + datas.oldPrice + '</span>' + '<span class="join">加入购物车</span>' + '</div>' + '</div>' + '<div class="blank"></div>' + '<div class="shin">' + '<div class="si">' + '商品介绍' + '</div>' + '<div class="content">' + datas.info + '</div>' + '</div>' + '<div class="blank"></div>' + '<div class="evalution">' + '<div class="el">商品评价</div>' + '<div class="block">' + '<span class="first">全部<span>57</span></span>' + '<span class="second">推荐<span>41</span></span>' + '<span class="third">吐槽<span>10</span></span>' + '</div>' + '</div>' + '<div class="bingo">' + '<img src="../images/66.jpg">' + '<div>只看有内容的评价</div>' + '</div>' + '<div id="scoller-custom" style="position:relative;">' + '<div id="incustom" style = "overflow:hidden;">' + '<div class="custom-main">';
+                str5 += ' <div class="hea">'+'<div class="revert">'+'<span>'+'返回'+'</span>' +'</div>'+ '<img src="' + datas.image + '">' + '</div>' + '<div class="select">' + '<div class="bb">' + datas.name + '</div>' + '<div class="sp">' + '<span class="sale">' + '月售' + datas.sellCount + '份' + '</span>' + '<span class="praise">' + '好评率' + datas.rating + '</span>' + '</div>' + '<div class="prix">' + '<span class="now">' + '¥' + datas.price + '</span>' + '<span class="forme">' + datas.oldPrice + '</span>' + '<span class="join">加入购物车</span>' + '</div>' + '</div>' + '<div class="blank"></div>' + '<div class="shin">' + '<div class="si">' + '商品介绍' + '</div>' + '<div class="content">' + datas.info + '</div>' + '</div>' + '<div class="blank"></div>' + '<div class="evalution">' + '<div class="el">商品评价</div>' + '<div class="block">' + '<span class="first">全部<span>57</span></span>' + '<span class="second">推荐<span>41</span></span>' + '<span class="third">吐槽<span>10</span></span>' + '</div>' + '</div>' + '<div class="bingo">' + '<img src="/images/66.jpg">' + '<div>只看有内容的评价</div>' + '</div>' + '<div id="scoller-custom" style="position:relative;">' + '<div id="incustom" style = "overflow:hidden;">' + '<div class="custom-main">';
                 for (var n = 0; n < data.goods[i].foods[j].ratings.length; n++) {
-                    str5 += '<div class="custom-comment">' + '<div class="time">' + datas.ratings[n].rateTime + '</div>' + ' <div class="account">' + '<div class="number">' + datas.ratings[n].username + ' </div>' + '<div class="head">' + '<img src="' + datas.ratings[n].avatar + '">' + '</div>' + '</div>' + '<div class="comment">' + '<img src="../images/77.jpg">' + ' <span>' + datas.ratings[n].text + '</span>' + '</div>' + '</div>'
+                    str5 += '<div class="custom-comment">' + '<div class="time">' + datas.ratings[n].rateTime + '</div>' + ' <div class="account">' + '<div class="number">' + datas.ratings[n].username + ' </div>' + '<div class="head">' + '<img src="' + datas.ratings[n].avatar + '">' + '</div>' + '</div>' + '<div class="comment">' + '<img src="images/77.jpg">' + ' <span>' + datas.ratings[n].text + '</span>' + '</div>' + '</div>'
                     // +'</div>'
                     // +'</div>'
                     // +'</div>'
@@ -91,13 +102,20 @@ $('.js-title li').click(function() {
 
         }
     }
+
     $('.details').empty().append(str5);
     var highla = ($(window).height() - 1606) + 'px';
     $('#incustom').css('height', highla);
     myScroll = new iScroll('incustom');
 
 })
+// 返回键
+$(document).on("click", ".revert", function(){
+    $('.details').addClass('reveal');
+    $('header,.artical, .nav').removeClass('reveal');
 
+})
+// 阻止冒泡
 $('.three').click(function() {
     event.stopPropagation();
 })
@@ -129,6 +147,9 @@ $('footer').click(function() {
 
 })
 
+$('.js-gap').click(function(){
+    $('.gap-max').hide();
+});
 $('.plus').click(function() {
     var ircon = Number($(this).next().text());
     ircon = ircon - 1;
@@ -151,7 +172,8 @@ $('.plus').click(function() {
 })
 
 $('.empty').click(function() {
-
+    var $jsCar = $('#js-car');
+    $jsCar.find('li').remove();
     $('.plus').addClass('reveal');
     $('.gap-max').hide();
     $('footer').removeClass('haven');
@@ -245,7 +267,7 @@ $('.reduce').click(function() {
                 if (ids == data.goods[i].foods[j].id) {
                     names = data.goods[i].foods[j];
 
-                    str += '<li class="menu1" id="' + names.id + '">' + '<div class="menu">' + '<div class="mena">' + '<span class="greens">' + names.name + ' </span>' + ' <div class="mon">' + '<span class="sign">¥</span>' + '<span class="catalog">' + names.price + '</span>' + '</div>' + '</div>' + ' <div class="ben">' + '<img src="../images/3.jpg" class="decrease">' + '<span class="amount">' + nn + '</span>' + '<img src="../images/4.jpg" class="ad">' + '</div>' + '</div>' + '</li>';
+                    str += '<li class="menu1" id="' + names.id + '">' + '<div class="menu">' + '<div class="mena">' + '<span class="greens">' + names.name + ' </span>' + ' <div class="mon">' + '<span class="sign">¥</span>' + '<span class="catalog">' + names.price + '</span>' + '</div>' + '</div>' + ' <div class="ben">' + '<img src="images/3.jpg" class="decrease">' + '<span class="amount">' + nn + '</span>' + '<img src="images/4.jpg" class="ad">' + '</div>' + '</div>' + '</li>';
 
                 }
 
@@ -264,15 +286,7 @@ $('.reduce').click(function() {
     }
 })
 
-// 清空
-$('.empty').click(function() {
-    $('#js-car').find('li').remove();
-    str = "";
-    $('#js-car').find('li').removeAttr("id");
-    var ni = $('.amount');
-    var zero = Number($('.count').text())
-    // $('.amount').text(0);
-});
+
 
 // 购物车插入滚动
 var log = ($(window).height() - 100) + 'px';
@@ -282,7 +296,6 @@ $('#outcar').css('max-height', log);
 // 代理事件
 $(document).on("click", ".ad", function() {
     var _id = $(this).parents('li').attr('id');
-    debugger;
     var co = Number($(this).prev().text());
     co += 1;
     $(this).prev().text(co);
@@ -294,6 +307,11 @@ $(document).on("click", ".ad", function() {
         }
     });
 });
+
+$(document).on("click", ".gap", function() {
+    
+});
+
 // 代理事件
 $(document).on("click", ".decrease", function() {
     var _id = $(this).parents('li').attr('id');
