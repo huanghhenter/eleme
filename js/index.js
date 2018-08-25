@@ -29,6 +29,7 @@ function loaded() {
 
     // myScroll = new iScroll('maintitle');
 }
+
 document.addEventListener('touchmove',
 function(e) {
     e.preventDefault();
@@ -68,7 +69,7 @@ function bindEvent() {
         myScroll2.scrollToElement('#goods_' + _index);
     });
     $('.notice').click(function() {
-        $('.opacity').removeClass('reveal');debugger;
+        $('.opacity').removeClass('reveal');
         // $('.artical').hide()
     });
 

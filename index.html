@@ -1,11 +1,9 @@
-
-<!DOCUTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
     <link href="css/index.css" rel="stylesheet" type="text/css" >
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>  
-    <script type="text/javascript" src="js/iscroll.js"></script>
+    
   </head>
   <body>
   <header id="js-head">
@@ -467,8 +465,8 @@
     </div>
    </div>
    <div class="love">
-     <img src="images/b-love.jpg">
-     <img src="images/love.jpg" class="reveal">
+     <img src="images/b-love.jpg" class="collect">
+     <img src="images/love.jpg" class="reveal clollected">
      <div class="status"><p>已收藏</p></div>
    </div>
   </div>
@@ -581,7 +579,7 @@
     </div>
     <div class="affiche">
      <div class="inner-affiche">
-      <img src="images/no.png" class="notice">
+      <img src="images/no.png" class="">
        <span><%=data.seller.bulletin%></span>
      </div>
      </div>
@@ -590,7 +588,7 @@
   <script type="text/template" id="scroller-js-text">
     <ul class="js_foodtypelist">
   <% _.each(data.goods, function(n){ %> 
-        <li >
+        <li>
        <span> <%=n.name%></span></li>
    <%})%>
   </ul>
@@ -667,7 +665,8 @@
   <%})%>
    </ul>
   </script>
-
+  <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>  
+    <script type="text/javascript" src="js/iscroll.js"></script>
   <script type="text/javascript" src="source/data.js"></script>
   <script type="text/javascript" src="js/underscore.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
